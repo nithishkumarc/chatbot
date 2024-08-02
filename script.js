@@ -28,26 +28,34 @@ async function chatbot(input) {
     output = "EMF stands for electromotive force. This refers to the electric potential produced by either an electrochemical cell or by changing the magnetic field.";
   } else if (input.includes("What is the si unit of emf?") || input.includes("What is the SI unit of EMF") || input.includes("si unit of emf")) {
     output = "Like other measures of energy per charge, emf uses the SI unit volt, which is equivalent to a joule (SI unit of energy) per coulomb (SI unit of charge).";
+
   } else if (input.includes("what is Embedded System") || input.includes("what the Embedded System") || input.includes("define Embedded System")) {
-    output = "It’s a combination of both software and hardware. It is designed to do a specific job or task to be completed within a specific time.";
+    output = "It s a combination of both software and hardware. It is designed to do a specific job or task to be completed within a specific time.";
   } else if (input.includes("what is features of embedded system") || input.includes("what is the features of Embedded System") || input.includes("features of Embedded System")) {
     output = "Embedded systems do a very specific task; they cannot be programmed to do different things. A specific job has to be completed within a specific time.";
-  } else {
+  } else if (input.includes("who is creates you ") || input.includes("who make you") || input.includes("who makes you")|| input.includes("who create you")|| input.includes("who creates you")) {
+    output = "Nithish";
+} else {
     // Fallback to ChatGPT API
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer sk-proj-lVeOe1ibcrV4qc0rYadpT3BlbkFJ5a4fQB5aXfBSTlRnwd8Yecev` // Replace YOUR_API_KEY with your actual API key
-      },
-      body: JSON.stringify({
-        model: "gpt-4",
-        messages: [{ role: "user", content: input }],
-        max_tokens: 150
-      })
-    });
-    const data = await response.json();
-    output = data.choices[0].message.content;
+    try{
+      await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ` // Replace YOUR_API_KEY with your actual API key
+        },
+        body: JSON.stringify({
+          model: "gpt-4.0",
+          messages: [{ role: "user", content: "rose" }],
+          // max_tokens: 150
+        })
+      }).then((response) => console.log(response));
+      output = data.choices[0].message.content;
+    }
+    catch(error){
+      console.error(error.message);
+    }
+    
   }
 
   return output;
@@ -109,3 +117,4 @@ document.getElementById("input").addEventListener("keypress", function (event) {
     sendMessage();
   }
 });
+
